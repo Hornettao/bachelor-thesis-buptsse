@@ -1,0 +1,3 @@
+[submodule "refsys"]
+	path = refsys
+	url = github:intern-ng/thesis.git
