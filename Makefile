@@ -1,7 +1,7 @@
 
 all: main.pdf
 
-main.pdf: data/*.tex main.tex BUPTthesisBachelor.sty
+main.pdf: parts/*.tex main.tex thesis.sty
 	-xelatex main.tex
 	-bibtex main
 	-xelatex main
