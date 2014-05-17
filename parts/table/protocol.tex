@@ -1,0 +1,75 @@
+
+\noindent
+\ttfamily
+\begin{longtable}{|p{1.2cm}|p{3cm}|p{3cm}|p{4cm}|X|}
+  \hline
+  \textbf{方法} & \textbf{资源标识符} & \textbf{权限} & \textbf{数据} & \textbf{描述} \\ \hline
+
+  GET  & /u/:id            & *    & USER         & 用户 \\ \hline
+  GET  & /m/:id            & *    & MESSAGE      & 消息 \\ \hline
+  GET  & /g/:id            & *    & GROUP        & 课类 \\ \hline
+  GET  & /c/:id            & *    & COURSE       & 课题 \\ \hline
+  GET  & /t/:id            & *    & TASK         & 任务 \\ \hline
+  GET  & /f/:id            & *    & FORM         & 表单 \\ \hline
+  GET  & /s/:id            & *    & SUBMIT       & 提交 \\ \hline
+  GET  & /a/:id            & *    & ANSWER       & 答案 \\ \hline
+  GET  & /r/:id            & *    & REVIEW       & 评价 \\ \hline
+  GET  & /y/:id            & *    & REGISTRY     & 注册 \\ \hline
+
+  GET  & /u/    & role(m) & <USER> & 枚举用户 \\ \hline
+  POST & /u/    & role(m) & <USER> & 创建用户 \\ \hline
+  PUT  & /u/:id & role(m) & <USER> & 修改用户 \\ \hline
+  DEL  & /u/:id & role(m) & <USER> & 删除用户 \\ \hline
+
+  GET  & /p     & *                 & PROFILE & 访问资料 \\ \hline
+  PUT  & /p     & role(m) | owner() & PROFILE & 修改资料 \\ \hline
+
+  GET  & /m/    & owner() & <MESSAGE> & 枚举消息 \\ \hline
+  POST & /m/    & *       & <MESSAGE> & 创建消息 \\ \hline
+  DEL  & /m/:id & owner() & <MESSAGE> & 删除消息 \\ \hline
+
+  GET  & /g/    & *       & <GROUP> & 枚举课类 \\ \hline
+  POST & /g/    & role(m) & <GROUP> & 创建课类 \\ \hline
+  PUT  & /g/:id & role(m) & <GROUP> & 修改课类 \\ \hline
+  DEL  & /g/:id & role(m) & <GROUP> & 删除课类 \\ \hline
+
+  GET  & /c/    & *                 & <COURSE> & 枚举课题 \\ \hline
+  POST & /c/    & role(m,t)         & <COURSE> & 创建课题 \\ \hline
+  PUT  & /c/:id & role(m) | owner() & <COURSE> & 修改课题 \\ \hline
+  DEL  & /c/:id & role(m) | owner() & <COURSE> & 删除课题 \\ \hline
+
+  GET  & /t/    & *                  & <TASK> & 枚举任务 \\ \hline
+  POST & /t/    & role(m) | parent() & <TASK> & 创建任务 \\ \hline
+  PUT  & /t/:id & role(m) | owner()  & <TASK> & 修改任务 \\ \hline
+  DEL  & /t/:id & role(m) | owner()  & <TASK> & 删除任务 \\ \hline
+
+  GET  & /f/    & *       & <FORM> & 枚举表单 \\ \hline
+  POST & /f/    & *       & <FORM> & 创建表单 \\ \hline
+  PUT  & /f/:id & owner() & <FORM> & 修改表单 \\ \hline
+  DEL  & /f/:id & owner() & <FORM> & 删除表单 \\ \hline
+
+  GET  & /s/    & parent() & <SUBMIT> & 枚举提交 \\ \hline
+  POST & /s/    & parent() & <SUBMIT> & 创建提交 \\ \hline
+  PUT  & /s/:id & owner()  & <SUBMIT> & 修改提交 \\ \hline
+  DEL  & /s/:id & owner()  & <SUBMIT> & 删除提交 \\ \hline
+
+  GET  & /a/    & * & <ANSWER> & 枚举答案 \\ \hline
+  POST & /a/    & * & <ANSWER> & 创建答案 \\ \hline
+  PUT  & /a/:id & * & <ANSWER> & 修改答案 \\ \hline
+  DEL  & /a/:id & * & <ANSWER> & 删除答案 \\ \hline
+
+  GET  & /r/    & * & <REVIEW> & 枚举评价 \\ \hline
+  POST & /r/    & * & <REVIEW> & 创建评价 \\ \hline
+  PUT  & /r/:id & * & <REVIEW> & 修改评价 \\ \hline
+  DEL  & /r/:id & * & <REVIEW> & 删除评价 \\ \hline
+
+  GET  & /y/    & role(m,t), parent()& <REGISTRY> & 枚举课程注册申请 \\ \hline
+  POST & /y/    & *                  & <REGISTRY> & 创建课程注册申请 \\ \hline
+  PUT  & /y/:id & parent() | owner() & <REGISTRY> & 修改课程申请状态 \\ \hline
+  DEL  & /y/:id & owner()            & <REGISTRY> & 取消课程申请     \\ \hline
+
+  \multicolumn{5}{|l|}{非REST接口} \\ \hline
+  POST    & /signin                      & *             & \{username, password\} & 登录 \\ \hline
+
+\end{longtable}
+
