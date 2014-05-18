@@ -26,7 +26,7 @@ HotDrink是一个用于创建表格、对话框以及其他Web应用常用的用
 最后，HotDrink的设计允许增量采用，如果需要，一部分用户界面可以受HotDrink控制，但另一部直接被JavaScript事件处理函数或其他的GUI框架控制。HotDrink在Object和Array原型上添加了一些方法，但不用担心这些附加会跟其他库冲突。
 \section*{例讲程序员视图}
 图1显示了典型酒店预订表单的一个部分。预订服务需要入住和离开时间以查询可入住的房间。增加“晚”这个字段之后，该UI提供了三种方法来指定这些日期――通过任意两个字段都能推断出第三个字段的值。我们将介绍如何使用HotDrink及Model-View-ViewModels模式来构造这个界面。读者可到hotdrinkjs.com/date-example下载实现代码。
-\begin{figure}[!hbp]
+\begin{figure}[!h]
   \begin{center}
     \includegraphics[scale=0.3]{figures/translation/translation_hotdrink_fig1.png}\\
     选择旅店住宿时段的表格
@@ -37,7 +37,7 @@ HotDrink是一个用于创建表格、对话框以及其他Web应用常用的用
 \subsection*{视图－模型}
 HotDrink API 提供一种嵌入式特定领域语言（在JavaScript中）来定义视图－模型。在这种语言中，程序员声明变量及它们之间的关系，一起组成这个视图－模型的约束Constraint系统。
 所有API存在于hd命名空间。图2显示了酒店预订表单视图－模型的API规范。
-\begin{figure}[!hbp]
+\begin{figure}[!h]
   \begin{center}
     \includegraphics[scale=0.3]{figures/translation/translation_hotdrink_fig2.png}\\
     表格的视图模型
@@ -51,7 +51,7 @@ HotDrink要求程序员显式地指定一个Constraint的每个方法。对于�
 HotDrink支持潜在Constraint系统的增量构造――可对已经与view绑定的系统增加新的变量和Constraint――这将允许view-model根据用户需求变化。
 \subsection*{视图}
 View和model一样，位于HotDrink的范围之外。View可由标准的HTML元素或者第三方widget工具包构造。我们的酒店预订表单的view是用Html写的，如图3所示。
-\begin{figure}[!hbp]
+\begin{figure}[!h]
   \begin{center}
     \includegraphics[scale=0.3]{figures/translation/translation_hotdrink_fig3.png}\\
     图1旅店预约表格的视图元素
@@ -145,10 +145,10 @@ HotDrink可在https://github.com/HotDrink找到，且还在开发中。我们向
 这些研究使用定量测量标准往往是完成任务的次数[5,1]，有时是代码行数[10]，或者需要的迭代步骤[1]。虽然这些有助于比较不同的APIs[5]，他们只能从广义上指出可用性问题。有声思维与录像观察的更多细节分析有助于识别更多潜在的可用性问题。然而找出一系列或成簇的可用性问题很困难。一个可能的方法是Clarke提出的[3]。他使用认知维度框架并使其匹配API可用性评估的需求。通过使用此框架，评测者可以将从不同范畴找到的问题聚集，并因此可以识别出那些更高层次的API概念可能是有问题的。另一方面，Ko et al.[11]在大量研究中识别了一组API中的6个学习阻碍，这个方法可以用来聚集定性数据。识别这样的学习障碍与评测一组API的阈值只有一步之遥，这意味着要获得一个想要的输出有多难，Myers将其定义在他们的阈值和上限质量标准。这个上限定义了一组API中什么是可实现的。针对这类事件，一般的评估API的方法是案例研究，这些研究展示了一系列可能的系统。因此关于此类API可用性研究的分析，还有相当多的工作要做。我们认为从方法论的角度，还有提升的空间。现有方法在解决两方面不够充分：1）因为大多数研究被限制在一个或几个小时来测试，任务都比较简单且大多数时间被“事先定义”。那种可以用API完成的更复杂或“不受约束”的任务，很少并且在这样的研究设计中难于集成，尽管这样的任务能提供针对实际使用API的可用性很有价值的输入。2）在这样有代表性的研究中，评测学习障碍或API阈值似乎很难。需要做出长时间使用过程中障碍转化或者阈值很难设定等假设。这两方面问题都可以通过纵向研究设计解决，此设计主要收集多于一个时间点上的数据，这使得整合更复杂的任务和观察变化成为可能。在之后的章节中，我们会展示概念图方法来解决这些问题。它基于纵向领域研究设计和API用法可视化。
 \section*{概念图方法}
 我们方法的基础是概念图：我们在例会中观察开发者组，在这个两人的组中，他们要画一个能表现他们建立的系统和API之间的关系的图（见图1）。为了完成这项任务，参与者被要求在便利贴上做标注，并将其放到一张大纸上（见图1）。这张概念图不仅能显现开发者使用了哪部分API，还能展示出他们对于如何将这些API合作起来的思考。我们规定两人一组，这样他们就能组内讨论概念图的设计，大声交谈，并给出在理解此API方面有价值的见解。这样的一个概念图图示使得跟踪变化更为简单。
-\begin{figure}[!hbp]
+\begin{figure}[!h]
   \begin{center}
     \includegraphics[scale=0.3]{figures/translation/translation_api_fig1.png}\\
-    领域模型示意图
+    概念图实例
   \end{center}
 \end{figure}
 
@@ -167,42 +167,50 @@ Zoomable Object-Oriented Information Landscape (ZOIL) API, 是由本文其中一
 本章节我们举例说明我们方法的潜力，并给出一些现有实现过程中观察到的缺陷。
 以wiki为日记的方法在定期使用方面依然有困难。这导致一些不会在日记上报告的小问题，以及有时一些大点问题的状态不会在研究过程中被实时更新，这为判断数据可靠性增添了困难。我们建议用一个不太起眼的工具，把日记直接集成到IDE或工具包中。一个有趣的方法是使用twitter作为这个不起眼的工具以及低层次技术。除此之外，我们的参与者在找合适的词去描述API概念的时候遇到了问题。一个可能的解决方案是提前提供形容词，负面和正面词都应包括，然后让参与者从这些样本中挑选就行了。
 概念图被证实在将用户对API的思维模型可视化这一方面很有用。在一些案例中，参与者将ZOIL底层框架更深层次的概念加入到自己的图中，并表示他们期望这些一直作为API的一部分。此外，在概念图创建过程中，组员之间的讨论对了解他们对API的理解和用法极为有帮助。概念图分析随着时间推移表现出惊人的洞察力。一个例子是由API提供的数据库连接，实际上不是用在数据存储，而是用来在多显示屏上系统同步的。有一组在这个问题的理解上出现了偏差，因此在他们的概念图中，即使有数据存储的需求，他们仅仅加入了db4o词API提供的后端连接。在第二周，他们意识到还不够，于是加入了MySQL数据库这个附加概念，并将其与db4o后端结合（见图2\&3）。识别学习障碍的一个例子是Model-View-ViewModel(MNNM)模式的用法（见图4）。正如所预料的， 其中有一组在集成上遇到了困难，在最后的时候才想出解决方案。然而，概念图表明（图5\&6）他们最终以一个近似基本的视图和模型分离方案告终。因此即使MVVM模式提供了所需要的功能，它也会被明显的归为一个API学习障碍。问题日记在概念图会议的讨论触点上还是有用的，帮助我们获得了对特定问题的更多见解。我们在最后一次会议集成进的附加任务，即要求参与者将API概念放入他们各自的图中，并给出在思考和理解API方面上的更多见解。
-\begin{figure}[!hbp]
+
+\begin{figure}
   \begin{center}
     \includegraphics[scale=0.3]{figures/translation/translation_api_fig2.png}\\
-    领域模型示意图
+    最初使用 db4o 作为存储后端的概念图
   \end{center}
 \end{figure}
 
-\begin{figure}[!hbp]
+\begin{figure}
   \begin{center}
     \includegraphics[scale=0.3]{figures/translation/translation_api_fig3.png}\\
-    领域模型示意图
+    在概念图中加入 MySQL
   \end{center}
 \end{figure}
 
-\begin{figure}[!hbp]
+\begin{figure}
   \begin{center}
     \includegraphics[scale=0.3]{figures/translation/translation_api_fig4.png}\\
-    领域模型示意图
+    ZOIL 框架使用的 MVVM 设计
   \end{center}
 \end{figure}
 
-\begin{figure}[!hbp]
+\begin{figure}
   \begin{center}
     \includegraphics[scale=0.3]{figures/translation/translation_api_fig5.png}\\
-    领域模型示意图
+    使用概念图模拟 MVVM 行为
   \end{center}
 \end{figure}
 
-\begin{figure}[!hbp]
+\begin{figure}
   \begin{center}
     \includegraphics[scale=0.3]{figures/translation/translation_api_fig6.png}\\
-    领域模型示意图
+    设计实现示意图
   \end{center}
 \end{figure}
 
 \textit{展望}
 我们提出了一个纵向方法来评估一组API的可用性。这个方法包含可视概念图方法和问题日记方法，两个方法以跟踪纵向设计中的变化为关注点，来进行数据收集。我们的首次实验结果前景很好，我们将进一步精炼并扩展这个方法，并将其应用到更大更结构化的案例研究中，从而能描述出更多潜在好处的细节。一个有望的设计修改是减少用户在创建图的过程中的自由程度，使得能够出现在一些案例中更容易理解的结果的附加量化。我们还会比较我们的方法和传统的API可用性测试方法。
 
+\newpage
+
 \section*{外文译文原文}
+
+\includepdf[pages=-]{figures/translation/p80-freeman.pdf}
+
+\includepdf[pages=-]{figures/translation/p3937-gerken.pdf}
+
