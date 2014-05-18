@@ -206,7 +206,7 @@
 
 \section{服务器接口设计\label{sec:ServerAPI}}
 
-服务器接口(下文统称通信协议)基于 REST(Representational State Transfer) 服务风格设计~\cite{fielding2002principled}。
+服务器接口(通信协议)基于 REST(Representational State Transfer) 服务风格设计~\cite{fielding2002principled}。
 
 \begin{table}[!h]
   \begin{center}
@@ -262,7 +262,7 @@
   \end{center}
 \end{table}
 
-另外，客户端在访问服务器列表接口时服务器返回列表内元素的 $id$ 列表，客户端需要对每个元素进行单独访问，这要求客户端有一定的缓存机制作为支持以提升请求性能(或者浏览器支持 HTTP Pipelining 机制)。
+另外，客户端在访问服务器枚举接口时服务器返回列表内元素的 $id$ 列表，客户端需要对每个元素进行单独访问，这要求客户端有一定的缓存机制作为支持以提升请求性能(或者浏览器支持 HTTP Pipelining 机制)。
 
 \newpage
 
