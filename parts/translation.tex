@@ -28,7 +28,7 @@ HotDrink是一个用于创建表格、对话框以及其他Web应用常用的用
 图1显示了典型酒店预订表单的一个部分。预订服务需要入住和离开时间以查询可入住的房间。增加“晚”这个字段之后，该UI提供了三种方法来指定这些日期――通过任意两个字段都能推断出第三个字段的值。我们将介绍如何使用HotDrink及Model-View-ViewModels模式来构造这个界面。读者可到hotdrinkjs.com/date-example下载实现代码。
 \begin{figure}[!hbp]
   \begin{center}
-    \includegraphics[scale=0.3]{figures/translation/translation_hotdrink_fig1.png}
+    \includegraphics[scale=0.3]{figures/translation/translation_hotdrink_fig1.png}\\
     选择旅店住宿时段的表格
   \end{center}
 \end{figure}
@@ -39,7 +39,7 @@ HotDrink API 提供一种嵌入式特定领域语言（在JavaScript中）来定
 所有API存在于hd命名空间。图2显示了酒店预订表单视图－模型的API规范。
 \begin{figure}[!hbp]
   \begin{center}
-    \includegraphics[scale=0.3]{figures/translation/translation_hotdrink_fig2.png}
+    \includegraphics[scale=0.3]{figures/translation/translation_hotdrink_fig2.png}\\
     表格的视图模型
   \end{center}
 \end{figure}
@@ -53,7 +53,7 @@ HotDrink支持潜在Constraint系统的增量构造――可对已经与view绑�
 View和model一样，位于HotDrink的范围之外。View可由标准的HTML元素或者第三方widget工具包构造。我们的酒店预订表单的view是用Html写的，如图3所示。
 \begin{figure}[!hbp]
   \begin{center}
-    \includegraphics[scale=0.3]{figures/translation/translation_hotdrink_fig3.png}
+    \includegraphics[scale=0.3]{figures/translation/translation_hotdrink_fig3.png}\\
     图1旅店预约表格的视图元素
   \end{center}
 \end{figure}
@@ -147,7 +147,7 @@ HotDrink可在https://github.com/HotDrink找到，且还在开发中。我们向
 我们方法的基础是概念图：我们在例会中观察开发者组，在这个两人的组中，他们要画一个能表现他们建立的系统和API之间的关系的图（见图1）。为了完成这项任务，参与者被要求在便利贴上做标注，并将其放到一张大纸上（见图1）。这张概念图不仅能显现开发者使用了哪部分API，还能展示出他们对于如何将这些API合作起来的思考。我们规定两人一组，这样他们就能组内讨论概念图的设计，大声交谈，并给出在理解此API方面有价值的见解。这样的一个概念图图示使得跟踪变化更为简单。
 \begin{figure}[!hbp]
   \begin{center}
-    \includegraphics[scale=0.3]{figures/translation/translation_api_fig1.png}
+    \includegraphics[scale=0.3]{figures/translation/translation_api_fig1.png}\\
     领域模型示意图
   \end{center}
 \end{figure}
@@ -169,35 +169,35 @@ Zoomable Object-Oriented Information Landscape (ZOIL) API, 是由本文其中一
 概念图被证实在将用户对API的思维模型可视化这一方面很有用。在一些案例中，参与者将ZOIL底层框架更深层次的概念加入到自己的图中，并表示他们期望这些一直作为API的一部分。此外，在概念图创建过程中，组员之间的讨论对了解他们对API的理解和用法极为有帮助。概念图分析随着时间推移表现出惊人的洞察力。一个例子是由API提供的数据库连接，实际上不是用在数据存储，而是用来在多显示屏上系统同步的。有一组在这个问题的理解上出现了偏差，因此在他们的概念图中，即使有数据存储的需求，他们仅仅加入了db4o词API提供的后端连接。在第二周，他们意识到还不够，于是加入了MySQL数据库这个附加概念，并将其与db4o后端结合（见图2\&3）。识别学习障碍的一个例子是Model-View-ViewModel(MNNM)模式的用法（见图4）。正如所预料的， 其中有一组在集成上遇到了困难，在最后的时候才想出解决方案。然而，概念图表明（图5\&6）他们最终以一个近似基本的视图和模型分离方案告终。因此即使MVVM模式提供了所需要的功能，它也会被明显的归为一个API学习障碍。问题日记在概念图会议的讨论触点上还是有用的，帮助我们获得了对特定问题的更多见解。我们在最后一次会议集成进的附加任务，即要求参与者将API概念放入他们各自的图中，并给出在思考和理解API方面上的更多见解。
 \begin{figure}[!hbp]
   \begin{center}
-    \includegraphics[scale=0.3]{figures/translation/translation_api_fig2.png}
+    \includegraphics[scale=0.3]{figures/translation/translation_api_fig2.png}\\
     领域模型示意图
   \end{center}
 \end{figure}
 
 \begin{figure}[!hbp]
   \begin{center}
-    \includegraphics[scale=0.3]{figures/translation/translation_api_fig3.png}
+    \includegraphics[scale=0.3]{figures/translation/translation_api_fig3.png}\\
     领域模型示意图
   \end{center}
 \end{figure}
 
 \begin{figure}[!hbp]
   \begin{center}
-    \includegraphics[scale=0.3]{figures/translation/translation_api_fig4.png}
+    \includegraphics[scale=0.3]{figures/translation/translation_api_fig4.png}\\
     领域模型示意图
   \end{center}
 \end{figure}
 
 \begin{figure}[!hbp]
   \begin{center}
-    \includegraphics[scale=0.3]{figures/translation/translation_api_fig5.png}
+    \includegraphics[scale=0.3]{figures/translation/translation_api_fig5.png}\\
     领域模型示意图
   \end{center}
 \end{figure}
 
 \begin{figure}[!hbp]
   \begin{center}
-    \includegraphics[scale=0.3]{figures/translation/translation_api_fig6.png}
+    \includegraphics[scale=0.3]{figures/translation/translation_api_fig6.png}\\
     领域模型示意图
   \end{center}
 \end{figure}
