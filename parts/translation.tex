@@ -60,8 +60,8 @@ View和model一样，位于HotDrink的范围之外。View可由标准的HTML元�
 Binding处理了widgets中view与view-model的变量之间的数据交换。它们可以是单向的（从view-model到view），或者是双向的。HotDrink为从views到view-models之间的binding提供了两种机制：javaScript或者Html属性。我们的例子选择了声明性binding，如图3所示。
 Binder是一个函数，用来构造和注册一个事件处理器，后者实现某个特定的binding。比如，HotDrink文本binder将一个HTML文本输入widget与view-model的一个变量绑定，使用了两个事件处理器：
 \begin{itemize}
-  \item第一个监听widget的变人，并写入变量
-  \item第二个监听变量的变化，并更新widget
+  \item 第一个监听widget的变人，并写入变量
+  \item 第二个监听变量的变化，并更新widget
 \end{itemize}
 事件处理器是如此的琐碎，因为view-model constraint 系统处理了UI数据之间的所有依赖。在view出现变化的情况下，第一个处理器为constraint系统的一个变量分配一个新的值，引发一次更新。在solve 了constraint系统之后，view-model通知第二个处理器它所负责的widget或许需要更新。
 Binder包装了很多细节，包括观察view中的变化，更新view，以及将view中所使用的数据类型转换为view-model所使用的数据类型（反之亦然）。可以自定义binder来扩展hotdrink以支持任何view。在简单的情况下，binder只需要几句代码即可。HotDrink为标准的HTML widgets提供了内建binder。
@@ -103,14 +103,14 @@ viewModel.reserve = hd.command(function () {
 Hd.fn函数defer了model的reserve方法的调用 。该deferred 调用由一个匿名函数构建。这个函数形成了view-model中一个单向constraint的唯一方法。不管什么时候，只要这个deferred 调用的一个参数发生变化，这个command都会重新构建。通过分离构建和调用，hotdrink可以在一个command的执行之前确认它的依赖，并实现复杂的UI 行为，比如command activation和widget enablement.
 一个widget，比如一个按钮，可以与一个command绑定，因此用户针对它的动作会触发这个command。HotDrink为这种情况提供了内建的command binder：
 \begin{verbatim}
-<button data−bind="command: reserve"> 
-  Reserve a room</button> 
+<button data−bind="command: reserve">
+  Reserve a room</button>
 \end{verbatim}
 对于command的触发，程序员声明前提条件――boolean谓语――在command触发前必须满足。例如，预订command可能需要至少居住1晚：
 \begin{verbatim}
-hd.precondition(viewModel.reserve, function () { 
-  return nights() > 0; 
-}) 
+hd.precondition(viewModel.reserve, function () {
+  return nights() > 0;
+})
 \end{verbatim}
 不管何时，如果前提条件未能满足，该command触发算法会发出一个事件，表明它应当失效。Command widget，比如以上所提到的按钮，能够监听到这个事件并让自己失效。内建的HotDrink command默认使用这种方式。
 HotDrink可以扩展新的Behavior。尽管增加behavior需要大量的工作，但价值在于它们可以重用。
