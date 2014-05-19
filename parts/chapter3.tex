@@ -78,7 +78,9 @@
 
 \newpage
 
-\subsection{设计概要}
+\subsection{数据库设计概要}
+
+下图简单的列出了数据库设计(详见~\nameref{sec:appendix-database-diagram})
 
 \begin{figure}[!h]
   \begin{center}
@@ -112,6 +114,8 @@
 
 \subsection{课程实体设计}
 
+课程实体由导师创建，用于存放课程业务数据，与表单数据之间有紧密的业务联系。
+
 \begin{figure}[!h]
   \begin{center}
     \includegraphics[width=\textwidth]{figures/diagram-eer-course.pdf}
@@ -143,6 +147,8 @@
 
 \subsection{用户/账户实体设计}
 
+用户账户实体存储了用户信息、用户权限等信息，应用层权限控制提供了存储条件。
+
 \begin{figure}[!h]
   \begin{center}
     \includegraphics[width=\textwidth]{figures/diagram-eer-user.pdf}
@@ -157,6 +163,8 @@
 \newpage
 
 \subsection{表单实体设计}
+
+通过将业务类数据表抽象为表单实体增强了数据库的业务扩展性，减小了数据库和服务器的编码复杂度。
 
 \begin{figure}[!h]
   \begin{center}
@@ -189,7 +197,7 @@
 
 \subsection{标签/域模式}
 
-为了解决一系列实体的”搜索“问题(如可见性控制、批量操作)，设计标签(Tag)机制给每个可检索实体赋予一组标签。
+为了解决一系列实体的“搜索”问题(如可见性控制、批量操作)，设计标签(Tag)机制给每个可检索实体赋予一组标签。
 
 \begin{figure}[!h]
   \begin{center}
