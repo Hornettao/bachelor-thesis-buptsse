@@ -1,6 +1,8 @@
 \chapter{MVVM 模式与 Reactive Programming}
 
-本章将用一定的篇幅详细介绍 MVVM 模式在面向对象的过程式编程语言内的设计实现。使用实例解释 Reactive Programming 以及 FRP 的特性，并导出基于 FRP 进行的 ViewModel 实现。
+前三章介绍了项目的背景、需求以及基本的概要设计，本章将着重介绍围绕 MVVM 模式进行的分析与设计活动。
+
+本章将用一定的篇幅详细介绍 MVVM 模式在面向对象的过程式编程语言内的设计实现。使用实例解释 Reactive Programming 以及 FRP 的特性，并导出基于 Reactive Programming 模式的 ViewModel 实现方案。
 
 \section{面向对象的 MVVM 实现}
 
@@ -13,24 +15,30 @@ ViewModel 在 View 与 Model 中间进行数据处理、转换，是 MVVM 模式
   \end{center}
 \end{figure}
 
-面向对象的实现中 ViewModel 对象是对观察者模式(Observer Pattern)的一种实现。
+简要描述一下 MVVM 结构中的基本交互: ViewModel 通过监听 Model 变更对 View 进行更新; View 通过 ViewModel 将用户事件转换为 Model 数据、对 Model 进行更改。
+
+Model 与 ViewModel、View 与 ViewModel 之间的通信由 Binder 机制实现。Binder 机制是 MVVM 的 WPF 实现内隐含的设计~\footnote{MVVM 的命名并没有表现 Binder 机制}，通过 Binder 实现 ViewModel 到 View 的属性绑定和 ViewModel 对 Model 的监听。
+
+在概述中我们也提到 MVVM 架构设计的一个亮点在于 ViewModel 在行为上与 Model 保持的一致性，因此 ViewModel 之间的通信也是通过 Binder 进行的。
+
+在面向对象的设计模式中容易发现观察者模式(Observer Pattern)是非常适合这种场景的。因此，WPF 中使用的 ViewModel + Binder 借口就派生于观察者模式。
 
 \begin{figure}[!h]
   \begin{center}
-    \includegraphics[scale=0.5]{figures/pattern-observer.pdf}
+    \includegraphics[scale=0.6]{figures/pattern-observer.pdf}
     \caption{观察者模式\label{PatternObserver}}
     Subject 接受注册 Observer 并在 notifyObserver 中向 Observer 推送数据
   \end{center}
 \end{figure}
 
-参照类图\footnote{Wikipedia: File:Observer.svg}中的定义对 Model 与 ViewModel 进行定义:
+参照图~\ref{PatternObserver}~\footnote{Wikipedia: File:Observer.svg} 中的定义对 Model 与 ViewModel 进行定义:
 
 \begin{verbatim}
     @interface IModel implements ISubject;
     @interface IViewModel implements IObserver;
 \end{verbatim}
 
-为了让 ViewModel 具有 Model 的特性，将 ViewModel 的接口改写为:
+为了让 ViewModel 具有与 Model 相似的行为，将 ViewModel 的接口改写为:
 
 \begin{verbatim}
     @interface IViewModel implements IObserver, IModel;
@@ -56,7 +64,7 @@ Binder 实例构造时指定 View 元素作为 Observer 实例，指定 ViewMode
 \begin{figure}[!h]
   \begin{center}
     \includegraphics[scale=0.5]{figures/diagram-viewmodel-cascading.png}
-    \caption{ViewModel 的可级联特性\label{ViewModelCascading}}
+    \caption{ViewModel 可级联的特性\label{ViewModelCascading}}
   \end{center}
 \end{figure}
 
@@ -89,9 +97,9 @@ Binder 实例构造时指定 View 元素作为 Observer 实例，指定 ViewMode
 \begin{verbatim}
 
     @class DnDObserver implements IObserver
-      private boolean isDragging;
-      private Coord   prevCursorPosition;
-      public void notify(propName, oldValue, newValue);
+      @state  boolean isDragging;
+      @state  Coord   prevCursorPosition;
+      @method void notify (propName, oldValue, newValue);
 
     @interface ObservableView implements ISubject
 
