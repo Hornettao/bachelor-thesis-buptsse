@@ -47,26 +47,26 @@ MVC 架构模式中系统被分成 Model(模型)、View(视图)、Controller(控
 
 \begin{verbatim}
 
-    boolean isDragging;
+        boolean isDragging;
 
-    view.on('mousedown', () => {
-      isDragging = true
-      setPointerIcon()
-    })
+        view.on('mousedown', () => {
+          isDragging = true
+          setPointerIcon()
+        })
 
-    view.on('mouseup', () => {
-      isDragging = false
-      setPointerIcon()
-      handleDnD()
-    })
+        view.on('mouseup', () => {
+          isDragging = false
+          setPointerIcon()
+          handleDnD()
+        })
 
-    view.on('mousemove', () => {
-      if (isDragging) {
-        drawEffect()
-      } else {
-        doSomething()
-      }
-    })
+        view.on('mousemove', () => {
+          if (isDragging) {
+            drawEffect()
+          } else {
+            doSomething()
+          }
+        })
 
 \end{verbatim}
 
@@ -106,14 +106,18 @@ Model 与 ViewModel、View 与 ViewModel 之间的通信由 Binder 机制实现�
 参照图~\ref{PatternObserver}~\footnote{Wikipedia: File:Observer.svg} 中的定义对 Model 与 ViewModel 进行定义:
 
 \begin{verbatim}
-    @interface IModel implements ISubject;
-    @interface IViewModel implements IObserver;
+
+        @interface IModel implements ISubject;
+        @interface IViewModel implements IObserver;
+
 \end{verbatim}
 
 为了让 ViewModel 具有与 Model 相似的行为，将 ViewModel 的接口改写为:
 
 \begin{verbatim}
-    @interface IViewModel implements IObserver, IModel;
+
+        @interface IViewModel implements IObserver, IModel;
+
 \end{verbatim}
 
 \begin{figure}[!h]
@@ -126,7 +130,9 @@ Model 与 ViewModel、View 与 ViewModel 之间的通信由 Binder 机制实现�
 ViewModel 通过订阅 Model 获取 Model 的数据变更(图~\ref{MVVMCoreClasses} 中 Model 至 ViewModel 的 $Change Notifications$)。与之类似，View 与 ViewModel 之间的 Binder 定义:
 
 \begin{verbatim}
-    @interface IBinder implements ISubject, IObserver;
+
+        @interface IBinder implements ISubject, IObserver;
+
 \end{verbatim}
 
 Binder 实例构造时指定 View 元素作为 Observer 实例，指定 ViewModel 元素作为 Subject 实例就可以建立 ViewModel 至 View 的单向绑定关系。双向绑定关系由两个单项绑定构成，不加赘述。
@@ -146,12 +152,12 @@ Binder 实例构造时指定 View 元素作为 Observer 实例，指定 ViewMode
 
 \begin{verbatim}
 
-    @class DnDObserver implements IObserver
-      @state  boolean isDragging;
-      @state  Coord   prevCursorPosition;
-      @method void notify (propName, oldValue, newValue);
+        @class DnDObserver implements IObserver
+          @state  boolean isDragging;
+          @state  Coord   prevCursorPosition;
+          @method void notify (propName, oldValue, newValue);
 
-    @interface ObservableView implements ISubject
+        @interface ObservableView implements ISubject
 
 \end{verbatim}
 
@@ -173,11 +179,11 @@ Reactive Programming 是一种声明式的开发方法，用户通过声明数�
 
 \begin{verbatim}
 
-    // Declaration
-    var A = $R(function (b, c) { return b + c });
-    var B = $R.state(2); // Initial value for B
-    var C = $R.state(1); // Initial value for C
-    A.bindTo(B, C); // Declare B and C as argument for A
+        // Declaration
+        var A = $R(function (b, c) { return b + c });
+        var B = $R.state(2); // Initial value for B
+        var C = $R.state(1); // Initial value for C
+        A.bindTo(B, C); // Declare B and C as argument for A
 
 \end{verbatim}
 
@@ -185,10 +191,10 @@ Reactive Programming 是一种声明式的开发方法，用户通过声明数�
 
 \begin{verbatim}
 
-    // Reaction
-    A();   // -> 3
-    B(5);  // Set B to 5
-    A();   // -> 6
+        // Reaction
+        A();   // -> 3
+        B(5);  // Set B to 5
+        A();   // -> 6
 
 \end{verbatim}
 
@@ -209,12 +215,12 @@ Monad 与 Observer 之间的区别是 Monad 通过包装数据实现监听而 Ob
 
 \begin{verbatim}
 
-    @interface Monad
-      @method [Any] get (default: Optional-any)
-      @method [Monad] set (new_val: Any)
-      @method [Monad] on (event: Value-in('get', 'set'))
-      @method [Monad] setup ()
-      @method [Monad] teardown ()
+        @interface Monad
+          @method [Any] get (default: Optional-any)
+          @method [Monad] set (new_val: Any)
+          @method [Monad] on (event: Value-in('get', 'set'))
+          @method [Monad] setup ()
+          @method [Monad] teardown ()
 
 \end{verbatim}
 
@@ -228,7 +234,7 @@ Monad 与 Observer 之间的区别是 Monad 通过包装数据实现监听而 Ob
 这样定义以后实现 Drag'n'Drop 逻辑只需声明:
 
 \begin{verbatim}
-  dnd(mousedown(view), mouseup(view), mousemove(view))
+        dnd(mousedown(view), mouseup(view), mousemove(view))
 \end{verbatim}
 
 $mousedown$、$mouseup$ 与 $mousemove$ 函数分别产生 $view$ 对应事件对象的 Monad 对象，$dnd$ 函数控制 Drag'n'Drop 过程中的程序动作~\footnote{dnd 过程使用命令式进行定义}。
