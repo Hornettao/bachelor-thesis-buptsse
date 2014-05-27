@@ -6,7 +6,7 @@
 
 用户交互(User Interaction)在消费级产品开发中的地位近年来正不断提升，交互设计和实现正成为产品开发中最重要也最复杂的环节之一。随着互联网的发展、富交互应用(Rich Interaction Application, RIA)的兴起，交互设计正走向越来越复杂的方向。使用传统的命令式编程(Imperative Programming)实现用户交互逻辑的局限性也不断显现出来。
 
-Microsoft 在 Windows Presentation Framework (WPF) 中引入的 Model-View-ViewModel(MVVM) 模式近年来得到了相当广泛的关注和应用~\footnote{Wikipedia: Model View ViewModel}。MVVM模式作为如今最成功的图形用户界面(Graphical User Interface, GUI)开发模式之一，将函数式方法引入用户交互开发，解决了命令式编程方法在处理异步逻辑时难于维持代码逻辑连续性的问题。
+Microsoft 在 Windows Presentation Framework (WPF) 中引入的 Model-View-ViewModel(MVVM) 模式近年来得到了相当广泛的关注和应用~\footnote{Wikipedia: Model View ViewModel}。MVVM模式作为如今最成功的图形用户界面(Graphical User Interface, GUI)开发模式之一，将声明式方法引入用户交互开发，解决了命令式编程方法在处理异步逻辑时难于维持代码逻辑连续性的问题。
 
 课程管理系统作为面向业务产品的典型代表，工程规模足够体现设计模式的各项性能。本文以课程管理产品的设计与开发为线索，尝试解释 MVVM 设计模式的设计方法，并从 FRP 的角度解释 MVVM 模式中 ViewModel 部分的设计，在此基础上使用 monad 结构~\cite{raey}开发 MVVM 框架并测试该框架在课程管理系统中实际进行富交互应用开发的性能。
 
