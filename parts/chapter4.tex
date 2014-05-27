@@ -4,6 +4,43 @@
 
 本章将用一定的篇幅详细介绍 MVVM 模式在面向对象的过程式编程语言内的设计实现。使用实例解释 Reactive Programming 以及 FRP 的特性，并导出基于 Reactive Programming 模式的 ViewModel 实现方案。
 
+\section{用户交互与异步编程模型\label{sec:AsyncProgrammingModel}}
+
+用户与计算机的交互是基于人机交互界面(UI)进行的，早期的终端用户界面 (Console User Interface, CUI) 程序与用户进行同步交互，交互的模型为: 用户输入-程序执行-程序输出-用户输入\ldots，这样的逻辑在面向过程编程的语言实现中是非常自然的程序表达——按先后顺序执行每一条语句。
+
+在图形界面(Graphical User Interface, GUI)得到应用之后，用户可以不间断地与程序进行交互而不需要等待程序的执行，这样的设计极大的提升了用户体验。现代的 GUI 程序广泛使用了事件模型处理用户交互，事件是一组时间顺序的离散数据的集合，对程序来说事件是一类异步产生的数据，因此，基于事件进行编程便成为了进行用户交互实现的基本方法。
+
+明确了这点之后，我们可以将行用户交互实现的本质问题归结为~\textbf{处理异步事件}。
+
+基于事件的开发并不是命令式(Imperative)编程模式所擅长的领域，也导致了大多数 GUI 程序的交互实现都极其不易维护。
+
+以 Drag'n'Drop (拖放操作, DnD) 为例\cite{Zhao2010}，在 GUI 上实现 DnD 操作需要程序监听三个不同的 GUI 事件:
+
+\begin{itemize}
+  \item 在 MouseDown 事件中标记 isDragging (正在拖动)
+  \item 在 MouseMove 事件中判断 isDragging 并且开始绘制拖放光标、使用 API 获取拖放的数据
+  \item 在 MouseUp 事件中判断 isDragging 并结束拖放状态(停止绘图)
+\end{itemize}
+
+在命令式编程语言中往往使用回调函数(Callback Function)对事件进行处理，这种离散的逻辑碎片导致了在 GUI 实现中出现大量的碎片代码以及全局状态，破坏了“代码逻辑局部性”、“变量局部性”等有利于代码组织和维护的性质。
+
+鉴于这种直接使用回调函数编程的弊端，面向对象的命令式编程语言使用观察者模式(Observer Pattern)，利用观察者响应事件数据从而实现对代码的封装管理。
+
+\begin{verbatim}
+
+    @class DnDObserver implements IObserver
+      @state  boolean isDragging;
+      @state  Coord   prevCursorPosition;
+      @method void notify (propName, oldValue, newValue);
+
+    @interface ObservableView implements ISubject
+
+\end{verbatim}
+
+$ObservableView$ 将事件抽象为一系列数据以及对属性变更事件的触发，$DnDObserver$ 监听 $ObservableView$ 的属性变更，这样的实现维护方便、有较强的可复用性。
+
+异步事件的处理逻辑符合声明式(Declaritive)语言自然的表达方式，使用声明式语言进行用户交互实现的尝试也越来越多。下一节将介绍的的 FRP 方法在异步事件处理方面就有非常出色的性能。
+
 \section{面向对象的 MVVM 实现}
 
 ViewModel 在 View 与 Model 中间进行数据处理、转换，是 MVVM 模式中的重要角色。
@@ -71,43 +108,6 @@ Binder 实例构造时指定 View 元素作为 Observer 实例，指定 ViewMode
 这样的设计使得ViewModel模式获得了很强的可扩展性，将用户交互状态分开给不同的 ViewModel 进行管理可以显著减小业务逻辑状态的维护难度，开发者可以利用封装的 ViewModel 类库进行组合来完成用户交互逻辑的实现，具有很高的可复用性。使用 ViewModel 进行开发也同时带来了良好的可测试的代码结构。
 
 通过上面的分析可以看出，观察者模式是 MVVM 模式的重要基础。下一节~\ref{sec:AsyncProgrammingModel} 从编程模型的角度讨论使用观察者模式的合理性并引出FRP作为异步编程模型的解决方案。
-
-\section{用户交互与异步编程模型\label{sec:AsyncProgrammingModel}}
-
-用户与计算机的交互是基于人机交互界面(UI)进行的，早期的终端用户界面 (Console User Interface, CUI) 程序与用户进行同步交互，交互的模型为: 用户输入-程序执行-程序输出-用户输入\ldots，这样的逻辑在面向过程编程的语言实现中是非常自然的程序表达——按先后顺序执行每一条语句。
-
-在图形界面(Graphical User Interface, GUI)得到应用之后，用户可以不间断地与程序进行交互而不需要等待程序的执行，这样的设计极大的提升了用户体验。现代的 GUI 程序广泛使用了事件模型处理用户交互，事件是一组时间顺序的离散数据的集合，对程序来说事件是一类异步产生的数据，因此，基于事件进行编程便成为了进行用户交互实现的基本方法。
-
-明确了这点之后，我们可以将行用户交互实现的本质问题归结为~\textbf{处理异步事件}。
-
-基于事件的开发并不是命令式(Imperative)编程模式所擅长的领域，也导致了大多数 GUI 程序的交互实现都极其不易维护。
-
-以 Drag'n'Drop (拖放操作, DnD) 为例\cite{Zhao2010}，在 GUI 上实现 DnD 操作需要程序监听三个不同的 GUI 事件:
-
-\begin{itemize}
-  \item 在 MouseDown 事件中标记 isDragging (正在拖动)
-  \item 在 MouseMove 事件中判断 isDragging 并且开始绘制拖放光标、使用 API 获取拖放的数据
-  \item 在 MouseUp 事件中判断 isDragging 并结束拖放状态(停止绘图)
-\end{itemize}
-
-在命令式编程语言中往往使用回调函数(Callback Function)对事件进行处理，这种离散的逻辑碎片导致了在 GUI 实现中出现大量的碎片代码以及全局状态，破坏了“代码逻辑局部性”、“变量局部性”等有利于代码组织和维护的性质。
-
-鉴于这种直接使用回调函数编程的弊端，面向对象的命令式编程语言使用观察者模式(Observer Pattern)，利用观察者响应事件数据从而实现对代码的封装管理。
-
-\begin{verbatim}
-
-    @class DnDObserver implements IObserver
-      @state  boolean isDragging;
-      @state  Coord   prevCursorPosition;
-      @method void notify (propName, oldValue, newValue);
-
-    @interface ObservableView implements ISubject
-
-\end{verbatim}
-
-$ObservableView$ 将事件抽象为一系列数据以及对属性变更事件的触发，$DnDObserver$ 监听 $ObservableView$ 的属性变更，这样的实现维护方便、有较强的可复用性。
-
-异步事件的处理逻辑符合声明式(Declaritive)语言自然的表达方式，使用声明式语言进行用户交互实现的尝试也越来越多。下一节将介绍的的 FRP 方法在异步事件处理方面就有非常出色的性能。
 
 \section{Reactive Programming 与 Monad 函数}
 
