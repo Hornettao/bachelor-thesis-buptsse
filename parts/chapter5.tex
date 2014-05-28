@@ -120,9 +120,9 @@ $qb$ 函数返回用于数据库查询的高阶函数，在中间件中:
 
 \section{客户端视图模型(ViewModel)}
 
-Reactive 框架作为 MVVM 模式中 ViewModel 的基础结构，起到替代面向对象设计中的 Observer 模式。相比 Observer 模式，Reactive 框架能够对状态进行更精细的控制而不增加编码复杂度。
+项目中使用 Monad 对 MVVM 模式中 ViewModel 进行实现，替代面向对象设计中的 Observer 模式。Monad 与 Observer 都能合理的组织代码，将代码复杂度保持在线性增长的状态，而 Monad 在函数式开发环境中更容易实现和使用。
 
-本项目尝试开发的 entangle 框架经过三次迭代最终满足客户端前端开发的需求，下面对 entangle 框架成型过程中所解决的重要业务需求以及其实现方案进行叙述。
+本项目尝试开发的 Entangle 框架经过三次迭代最终满足客户端前端开发的需求，Entangle 框架使用 Monad 作为 Reactive Programming 的响应核心，并在此基础上封装 Builder 模式以简化对业务逻辑中经常出现的顺序逻辑的定义过程。下面几个小节对 Entangle 框架成型过程中所解决的重要业务需求以及其实现方案进行叙述。
 
 \subsection{数据同步}
 
@@ -136,13 +136,13 @@ Reactive 框架作为 MVVM 模式中 ViewModel 的基础结构，起到替代面
 
 \end{verbatim}
 
-entangle 使用链式表达式构建串行关系的转换子(Converter)，上例实现获取用户信息的功能。
+Entangle 使用链式表达式构建串行关系的转换子(Converter)，上例实现获取用户信息的功能。
 
 对于轮询的情况，可以使用 $timeout$ 转换子:
 
 \begin{verbatim}
 
-        var juice = entangle().http('GET', '/u').pick(function (data) { /* ... */ });
+        var juice = entangle().http('GET', '/u')
         var timer = entangle().timeout(2000);
 
         timer.fork(juice);
@@ -152,7 +152,7 @@ entangle 使用链式表达式构建串行关系的转换子(Converter)，上例
 
 $fork$ 原语将 timer 的值转发到 juice，当 timer 触发时，触发事件会传递给 juice、发出 http 请求，请求完成后 juice 又会将数据 fork 回 timer 进行下一个 $2s$ 的等待。这样就造成了一个轮询的数据流。
 
-详细的实现请参考附录内容，在这里我们不详细展开 entangle 的实现细节。
+详细的实现请参考附录内容，在这里我们不详细展开 Entangle 的实现细节。
 
 \subsection{页面导航}
 
@@ -173,7 +173,7 @@ $location$ 转换子实现对页面地址信息的监听:
 
 \begin{verbatim}
 
-        location: function () { // {{{
+        location: function () {
 
           var converter = function () {
             this.resolve(location);
@@ -199,11 +199,11 @@ $location$ 转换子实现对页面地址信息的监听:
 
           return converter;
 
-        }, // }}} location
+        }
 
 \end{verbatim}
 
-在这里可以稍微分析一下转换子的构成:
+这里介绍一下转换子的构成:
 
 \begin{itemize}
   \item 转换子是一个返回高阶函数的函数
