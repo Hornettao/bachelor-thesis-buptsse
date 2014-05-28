@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TAG=$(git tag -l | tail -n1)
+TAG=$1
 
 latexmk -C
 
