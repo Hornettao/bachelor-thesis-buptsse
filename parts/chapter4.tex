@@ -89,7 +89,7 @@ ViewModel 在 View 与 Model 中间进行数据处理、转换，是 MVVM 模式
 
 简要描述一下 MVVM 结构中的基本交互: ViewModel 通过监听 Model 变更对 View 进行更新; View 通过 ViewModel 将用户事件转换为 Model 数据、对 Model 进行更改。
 
-Model 与 ViewModel、View 与 ViewModel 之间的通信由 Binder 机制实现。Binder 机制是 MVVM 的 WPF 实现内隐含的设计~\footnote{MVVM 的命名并没有表现 Binder 机制}，通过 Binder 实现 ViewModel 到 View 的属性绑定和 ViewModel 对 Model 的监听。
+Model 与 ViewModel、View 与 ViewModel 之间的通信由 Binder 机制实现。Binder 机制是 MVVM 的 WPF 实现内隐含的设计~\footnote{MVVM 的命名并没有表现 Binder 机制}，通过 Binder 实现 ViewModel 到 View 的属性绑定和 ViewModel 对 Model 的监听~\cite{Likness2010}。
 
 在概述中我们也提到 MVVM 架构设计的一个亮点在于 ViewModel 在行为上与 Model 保持的一致性，因此 ViewModel 之间的通信也是通过 Binder 进行的。
 
@@ -239,7 +239,11 @@ Monad 与 Observer 之间的区别是 Monad 通过包装数据实现监听而 Ob
 
 $mousedown$、$mouseup$ 与 $mousemove$ 函数分别产生 $view$ 对应事件对象的 Monad 对象，$dnd$ 函数控制 Drag'n'Drop 过程中的程序动作~\footnote{dnd 过程使用命令式进行定义}。
 
+这里需要注意的是 $dnd$ 是一个返回 Monad 函数的高阶函数，接受三个 Monad 函数作为参数，通过 $on$ 方法监听三个 Monad 函数参数的变更，实现 FRP 中的 Pull 传递模型~\cite{Elliott:2009:PFR:1596638.1596643}。
+
 \section{小结}
+
+异步编程模型是在进行图形用户界面程序设计与开发过程中非常重要的一部分，不难发现解决交互开发问题的关键在于合理的组织代码处理异步事件。在 FRP 平台中，异步事件处理逻辑得到很自然的表述~\cite{Wan:2002:EF:645772.667941}，Microsoft 推出的 F\# 也将事件作为一等对象提出了类似的异步事件开发模型~\cite{Syme:2011:FAP:1946313.1946334}。异步事件处理模型已经由最开始的面向过程的回调函数演化到了一种语言模型，本项目也正是在这些工作的基础上，结合 JavaScript 平台的语言特性对 API 进行合理设计。
 
 本章作为本文讨论的重点之一，讨论分析了图形用户界面开发的本质问题——异步编程，说明了 MVC 架构与 MVVM 架构的关系。使用实例讨论了面向对象 MVVM 模式实现的基础——Observer 模式，说明了 Observer 模式在处理异步事件方面所具有的优势。
 
