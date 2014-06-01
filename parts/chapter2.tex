@@ -6,10 +6,10 @@
 
 目标模型是需求工程用于推导各级需求的关键模型，从任意一项目标出发向上推导更抽象、更概括的目标，向下推导更具体、更细致的需求。
 
-\begin{figure}[!hbp]
+\begin{figure}[!h]
   \begin{center}
     \includegraphics[width=\textwidth]{figures/goal.pdf}
-    \caption{目标模型示意图\label{GoalModel}}
+    \caption{课程管理系统目标模型(Goal Model)示意图\label{GoalModel}}
   \end{center}
 \end{figure}
 
@@ -21,10 +21,10 @@
 
 在需求获取的过程中使用用例模型能够更清晰的与对方展开需求沟通。
 
-\begin{figure}[!hbp]
+\begin{figure}[!h]
   \begin{center}
     \includegraphics[width=\textwidth]{figures/uc.pdf}
-    \caption{用户用例示意图\label{UseCase}}
+    \caption{目标系统用户用例(Use Case)示意图\label{UseCase}}
   \end{center}
 \end{figure}
 
@@ -96,7 +96,7 @@
   \item 进入课程详细信息
   \item 选择未完成的任务条目
   \item 填写任务需要完成的项目(以在线表格或者文件上传等形式)
-  \item 提交答案以完成任务
+  \item 提交答案以完成任务~\footnote{图~\ref{UseCase} 中的“完成任务”即学员进行答案提交的行为}
 \end{enumerate}
 
 完成任务后学员可继续提交、更新任务的答案直到导师做出任务评价。
@@ -128,47 +128,49 @@
 
 导师完成课程评分后可在学员列表直接查看到学员的课程得分。 学员可在任务列表查看到导师发布的任务评价，在课程的详细信息页面查看到导师发布的课程评分。
 
-\newpage
-
 \section{系统领域模型}
 
 建立系统领域模型可以帮助理解系统运行的外部环境以及系统开发的边界位置。
 
-\begin{figure}[!hbp]
+\begin{figure}[!h]
   \begin{center}
     \includegraphics[scale=0.6]{figures/domain.pdf}
-    \caption{领域模型示意图\label{DomainModel}}
+    \caption{目标领域模型(Domain Model)示意图\label{DomainModel}}
   \end{center}
 \end{figure}
 
 图~\ref{DomainModel} 所示为系统的领域模型示意图，图中的系统分别负责:
 
 \begin{itemize}
-\item 用户身份系统，负责用户身份的验证，以便用户能在不同系统中使用同一个身份
-\item 邮件服务系统，用于处理业务邮件请求(如发送通知、提醒)
-\item 归档管理系统，管理来自不同系统的归档，提供归档和归档的索引及下载服务
-\item 课程管理系统，本项目的目标系统，处理课程管理方面的业务请求
+  \item 开放身份系统(Open Identity System)，负责用户身份的验证，以便用户能在不同系统中使用同一个身份
+  \item 邮件服务系统，用于处理业务邮件请求(如发送通知、提醒)
+  \item 归档管理系统，管理来自不同系统的归档，提供归档和归档的索引及下载服务
+  \item 课程管理系统，本项目的目标系统，处理课程管理方面的业务请求
 \end{itemize}
+
+领域模型能够帮助明确系统边界以及与系统相关的服务接口，在验证需求有效性时能起到指导性作用。
 
 \subsection{业务过程模型}
 
-作为面向业务产品领域的关键知识，项目对课程管理系统的业务过程建立了业务过程模型，使用图形化的语言简单清晰的描述了系统所需要完成的业务逻辑。(\nameref{sec:appendix-bpm})
+作为面向业务产品领域的关键知识，项目对课程管理系统的业务过程建立了业务过程模型(Business Process Model, BPM)，使用图形化的语言简单清晰地描述了系统所需要完成的业务逻辑。
 
-\begin{figure}[!hbp]
+\begin{figure}[!h]
   \begin{center}
     \includegraphics[width=\textwidth]{figures/bpm.pdf}
     \caption{业务过程模型示意图(概览)\label{BPMOverview}}
   \end{center}
 \end{figure}
 
+图~\ref{BPMOverview} 展示了系统最上层业务逻辑的结构由课程信息的发布、学员的匹配(申报/录取)、课程过程控制(任务发布/完成)、归档整理四个主要业务版块构成，更详细的业务过程模型可参考~\nameref{sec:appendix-bpm}。
+
 \section{小结}
 
-在构造需求模型的过程中，维持需求的有效性、一致性、完备性、真实性和可检验性是有一定难度的，在本项目的需求模型构造过程中通过维持需求-目标的可追溯性来保持这些性质。
+在构造需求模型的过程中，维持需求的有效性、一致性、完备性、真实性和可检验性是有一定难度的，在本项目的需求模型构造环节中需求的发现、验证和整理按照图~\ref{RequirementExtraction} 所展示的过程进行，通过维持需求-目标的可追溯性来达到上述需求质量要求。
 
-\begin{figure}[!hbp]
+\begin{figure}[!h]
   \begin{center}
     \includegraphics[scale=0.6]{figures/process-requirement.pdf}
-    \caption{需求发现-验证流程(构造可追溯的需求)\label{RequirementExtraction}}
+    \caption{构造可追溯的需求发现-验证流程\label{RequirementExtraction}}
   \end{center}
 \end{figure}
 

@@ -28,12 +28,12 @@
 
 \section{MVC 架构模式}
 
-MVC 架构模式中系统被分成 Model(模型)、View(视图)、Controller(控制器) 三个部分
+MVC 架构模式中系统被分成 Model(模型)、View(视图)、Controller(控制器) 三个部分(如图~\ref{PatternMVC})
 
 \begin{figure}[!h]
   \begin{center}
     \includegraphics[scale=0.5]{figures/pattern-mvc.pdf}
-    \caption{MVC 模式}
+    \caption{Model-View-Controller 模式\label{PatternMVC}}
   \end{center}
 \end{figure}
 
@@ -81,11 +81,11 @@ MVVM 模式是对 MVC 模式的一种特殊形式，本节将就 MVVM 模式以�
 \begin{figure}[!h]
   \begin{center}
     \includegraphics[width=\textwidth]{figures/reference-mvvm-core-classes.pdf}
-    \caption{MVVM 设计模式中的关键类~\cite{ghoda2012windows}\label{MVVMCoreClasses}}
+    \caption{MVVM 设计模式的核心对象\label{MVVMCoreClasses}}
   \end{center}
 \end{figure}
 
-ViewModel 在 View 与 Model 中间进行数据处理、转换，是 MVVM 模式中的重要角色。
+图~\ref{MVVMCoreClasses}~\cite{ghoda2012windows} 详细描述了 MVVM 架构中各个组件所负责的任务以及之间的交互关系，其中 ViewModel 在 View 与 Model 中间进行数据处理、转换，是 MVVM 模式中的重要角色。
 
 简要描述一下 MVVM 结构中的基本交互: ViewModel 通过监听 Model 变更对 View 进行更新; View 通过 ViewModel 将用户事件转换为 Model 数据、对 Model 进行更改。
 
@@ -98,7 +98,7 @@ Model 与 ViewModel、View 与 ViewModel 之间的通信由 Binder 机制实现�
 \begin{figure}[!h]
   \begin{center}
     \includegraphics[width=\textwidth]{figures/pattern-observer.pdf}
-    \caption{观察者模式\label{PatternObserver}}
+    \caption{类图: 观察者模式\label{PatternObserver}}
     Subject 接受注册 Observer 并在 notifyObserver 中向 Observer 推送数据
   \end{center}
 \end{figure}
@@ -123,7 +123,7 @@ Model 与 ViewModel、View 与 ViewModel 之间的通信由 Binder 机制实现�
 \begin{figure}[!h]
   \begin{center}
     \includegraphics[scale=0.6]{figures/class-viewmodel.pdf}
-    \caption{ViewModel 类图\label{ViewModelClass}}
+    \caption{类图: ViewModel 设计\label{ViewModelClass}}
   \end{center}
 \end{figure}
 
@@ -137,12 +137,12 @@ ViewModel 通过订阅 Model 获取 Model 的数据变更(图~\ref{MVVMCoreClass
 
 Binder 实例构造时指定 View 元素作为 Observer 实例，指定 ViewModel 元素作为 Subject 实例就可以建立 ViewModel 至 View 的单向绑定关系。双向绑定关系由两个单项绑定构成，不加赘述。
 
-值得一提的是，由于 ViewModel 同时实现了 Model 接口，具备了 Model 的行为特性，ViewModel 之间也是可以互相观察的:
+值得一提的是，由于 ViewModel 同时实现了 Model 接口，具备了 Model 的行为特性，ViewModel 之间也是可以互相观察的(图~\ref{ViewModelCascading})。
 
 \begin{figure}[!h]
   \begin{center}
     \includegraphics[scale=0.6]{figures/class-viewmodel-cascading.pdf}
-    \caption{ViewModel 可级联的特性\label{ViewModelCascading}}
+    \caption{类图: ViewModel 级联设计\label{ViewModelCascading}}
   \end{center}
 \end{figure}
 
