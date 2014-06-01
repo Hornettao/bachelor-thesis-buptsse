@@ -6,7 +6,6 @@
 \usepackage{verbatim}
 \begin{document}
 
-
 %前面几页不需要页眉页脚
 \pagestyle{empty}
 
@@ -61,6 +60,12 @@
 \phantomsection
 \addcontentsline{toc}{chapter}{附\quad{}\quad{}录}
 \include{parts/appendix}
+
+%插图目录
+\listoffigures
+
+%表格目录
+\listoftables
 
 \pagestyle{empty}
 %外文资料(译文/原文)
