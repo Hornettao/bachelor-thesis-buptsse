@@ -8,7 +8,7 @@
 
 Microsoft 在 Windows Presentation Framework (WPF) 中引入的 Model-View-ViewModel(MVVM) 模式近年来得到了相当广泛的关注和应用~\footnote{Wikipedia: Model View ViewModel}。MVVM模式作为如今最成功的图形用户界面(Graphical User Interface, GUI)开发模式之一，将声明式方法引入用户交互开发，解决了命令式编程方法在处理异步逻辑时难于维持代码逻辑连续性的问题。
 
-课程管理系统作为面向业务产品的典型代表，工程规模足够体现设计模式的各项性能。本文以课程管理产品的设计与开发为线索，尝试解释 MVVM 设计模式的设计方法，并从 FRP 的角度解释 MVVM 模式中 ViewModel 部分的设计，在此基础上使用 monad 结构~\cite{raey}开发 MVVM 框架并测试该框架在课程管理系统中实际进行富交互应用开发的性能。
+课程管理系统作为面向业务产品的典型代表，工程规模足够体现设计模式的各项性能。本文以课程管理产品的设计与开发为例，尝试解释 MVVM 设计模式的设计方法，并从 FRP 的角度解释 MVVM 模式中 ViewModel 部分的设计，在此基础上使用 monad 结构~\cite{raey}开发 MVVM 框架并测试该框架在课程管理系统中实际进行富交互应用开发的性能。
 
 \section{Model-View-ViewModel~模式}
 
@@ -30,7 +30,7 @@ Microsoft 作为用户交互领域的先驱，最早在 2005 年由工程师 Mar
 \end{center}
 \end{figure}
 
-Model-View-ViewModel (MVVM) 模式是 Model-View-Controller (MVC) 模式的一种特化(见图~\ref{MVVMOverview}): MVC 模式中 Controller 负责进行的界面业务逻辑部分抽象为 ViewModel 以及 Binder 组合。一方面利用 ViewModel 管理交互状态、另一方面通过 Binder 将状态通过 View 进行展示。用户产生的交互事件也经由 Binder 传递至 ViewModel 对用户界面的状态以及 Model 状态产生影响。
+Model-View-ViewModel (MVVM) 模式是 Model-View-Controller (MVC) 模式的一种特例(见图~\ref{MVVMOverview}): MVC 模式中 Controller 负责进行的界面业务逻辑部分抽象为 ViewModel 以及 Binder 组合。一方面利用 ViewModel 管理交互状态、另一方面通过 Binder 将状态通过 View 进行展示。用户产生的交互事件也经由 Binder 传递至 ViewModel 对用户界面的状态以及 Model 状态产生影响。
 
 MVVM 模式的一大设计亮点在于“ViewModel 继承于 Model” 即: ViewModel 可以将另一个 ViewModel 实例作为 Model 进行数据请求。这是 ViewModel 与 Controller 之间最大的不同，也是 ViewModel 较 Controller 实现拥有更高的可复用性以及更良好的可测试性的原因。
 
