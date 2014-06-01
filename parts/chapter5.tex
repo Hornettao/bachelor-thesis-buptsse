@@ -4,12 +4,12 @@
 
 \section{开发环境与技术选择}
 
-系统开发主要使用 JavaScript 语言平台，应用服务器端使用 Node.js 而客户端使用 JavaScript 脚本开发业务代码。
+图~\ref{TechStack} 所示为最终确定的系统实现环境和进行的技术选择: 系统开发主要使用 JavaScript 语言平台，应用服务器端使用 Node.js 而客户端使用 JavaScript 脚本开发业务代码。
 
 \begin{figure}[!h]
   \begin{center}
     \includegraphics[width=\textwidth]{figures/techstack.pdf}
-    \caption{开发环境与外部组件\label{TechStack}}
+    \caption{系统开发环境与组件\label{TechStack}}
   \end{center}
 \end{figure}
 
@@ -84,11 +84,11 @@ $qb$ 函数返回用于数据库查询的高阶函数，在中间件中:
 \begin{figure}[!h]
   \begin{center}
     \includegraphics[width=\textwidth]{figures/pattern-middleware.pdf}
-    \caption{中间件行为示意图\label{ExpressMiddleware}}
+    \caption{中间件模式典型交互示意图\label{ExpressMiddleware}}
   \end{center}
 \end{figure}
 
-获得请求以后 Express.js 会按照中间件的注册顺序使用中间件处理请求，中间件返回三种处理结果:
+如图~\ref{ExpressMiddleware}，中间件获得请求以后 Express.js 会按照中间件的注册顺序使用中间件处理请求，中间件返回三种处理结果:
 
 \begin{enumerate}
   \item 处理完成，发送响应数据
@@ -281,28 +281,28 @@ View 的开发使用了 Jade(HTML预处理器) 和 Stylus (CSS预处理器) 组�
 \begin{figure}[!h]
   \begin{center}
     \includegraphics[scale=0.3]{figures/screenshot/enroll.png}
-    \caption{学员录取视图\label{SSEnroll}}
+    \caption{视图: 学员录取\label{SSEnroll}}
   \end{center}
 \end{figure}
 
 \begin{figure}[!h]
   \begin{center}
     \includegraphics[scale=0.3]{figures/screenshot/userman.png}
-    \caption{用户管理视图\label{SSUserMgr}}
+    \caption{视图: 用户管理\label{SSUserMgr}}
   \end{center}
 \end{figure}
 
 \begin{figure}[!h]
   \begin{center}
     \includegraphics[scale=0.3]{figures/screenshot/review.png}
-    \caption{课程评分视图\label{SSCourseReview}}
+    \caption{视图: 课程评分\label{SSCourseReview}}
   \end{center}
 \end{figure}
 
 \begin{figure}[!h]
   \begin{center}
     \includegraphics[scale=0.5]{figures/screenshot/responsive.png}
-    \caption{用户管理视图(移动终端)\label{SSResponsive}}
+    \caption{视图: 用户管理(移动终端)\label{SSResponsive}}
   \end{center}
 \end{figure}
 
