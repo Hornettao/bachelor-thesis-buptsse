@@ -43,6 +43,10 @@
 
 \setlength{\baselineskip}{20pt}  %设置行间距
 
+%在章节页显示页眉
+\usepackage{etoolbox}
+\patchcmd{\chapter}{\thispagestyle{plain}}{}{}{}
+
 \makeatletter
 \renewcommand{\thefigure}{\thechapter-\@arabic\c@figure}%改变图编号的形式
 \renewcommand{\thetable}{\thechapter-\@arabic\c@table}%改变表格编号的形式
