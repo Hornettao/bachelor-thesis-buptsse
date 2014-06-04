@@ -198,7 +198,7 @@ Reactive Programming 是一种声明式的开发方法，用户通过声明数�
 
 \end{verbatim}
 
-FRP 的将系统抽象为 $行为(Behaviors)$ 和 $事件(Events)$，上例中先使用 Monad 函数包装行为(见 A、B、C 的定义)并在行为之间建立关联(上例中使用 $bindTo$)，然后通过传入事件($B(5);$) 更改“行为”的值。
+FRP 的将系统抽象为行为(Behaviors)和事件(Events)，上例中先使用 Monad 函数包装行为(见 A、B、C 的定义)并在行为之间建立关联(上例中使用 $bindTo$)，然后通过传入事件($B(5);$) 更改“行为”的值。
 
 Reactive 定义中出现的 $\$R$ 函数所产生的对象(即 A、B和C)与 Haskell 中为 Monad 拥有相同的定义~\cite{raey}，后文中使用 Monad 指代这类对象。
 
