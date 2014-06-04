@@ -14,7 +14,6 @@
  \pagenumbering{#1}}
 \makeatother
 
-
 %字体设置宏包
 %\usepackage{fontspec}
 %\setmainfont[BoldFont=Adobe Heiti Std]{Times New Roman}
@@ -22,7 +21,8 @@
 %\setmainfont[BoldFont=SimHei]{Times New Roman}
 %\usepackage{mathptmx} %这个宏包使用后没有粗体
 
-\CTEXoptions[today=big,contentsname={\textbf\heiti\zihao{3}目\qquad 录},bibname={\textbf\heiti\zihao{3}参考文献},tablename={\kaishu 表},figurename={\kaishu 图}]
+\CTEXoptions[today=big,contentsname={\hfill\bfseries\heiti\zihao{3}目\qquad 录\hfill},bibname={\bf\heiti\zihao{3}参考文献}]
+\CTEXoptions[tablename={\kaishu 表},figurename={\kaishu 图}]
 \CTEXoptions[captiondelimiter={\quad}]
 \CTEXsetup[format={\heiti\zihao{3}\bfseries\centering},nameformat={\bfseries},titleformat={\bfseries}]{chapter}
 \CTEXsetup[format={\heiti\zihao{4}\bfseries\raggedright}]{section}
@@ -54,4 +54,41 @@
 \renewcommand{\thetable}{\kaishu\thechapter-\arabic{table}}%改变表格编号的形式
 \renewcommand{\theequation}{\kaishu\thechapter-\arabic{equation}}%改变表格编号的形式
 \makeatother
+
+%目录样式
+%参见 http://bbs.ctex.org/forum.php?mod=viewthread&tid=43535&page=1#pid310238
+\usepackage{tocloft}
+
+% 目录格式设置
+% “目录”字样格式设置
+\setlength{\cftbeforetoctitleskip}{0ex}     % 标题前垂直间距，在页首时会被忽略
+\setlength{\cftaftertoctitleskip}{40pt}      % 标题后垂直间距
+\renewcommand{\cfttoctitlefont}{} % TOC 字体
+\renewcommand{\cftaftertoctitle}{\hfill} % 配合 ctex 的 contentsname 产生莫名其妙的居中
+% 目录项格式设置
+\renewcommand{\cftdot}{…}           % 引导点，用中文的省略号
+\renewcommand{\cftdotsep}{0}        % 引导点的距离
+\cftsetpnumwidth{1em}               % 页码所占宽度，页数较多时应改大些
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}  % 节的引导点设置
+\renewcommand{\cftchapfont}{\bf\heiti\zihao{-4}}        % 节项目字体
+\renewcommand{\cftchapaftersnum}{}                      % 节数字后的标点
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsecfont}{\songti\zihao{-4}}
+\renewcommand{\cftsecaftersnum}{}
+\renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsubsecfont}{\songti\zihao{-4}}
+\renewcommand{\cftsubsecaftersnum}{}
+
+% numberline WORKAROUND {{{
+%下面修正一个 BUG。此段请勿再修改。如果不用 tecloft 宏包，则应把此段删去。
+% CTeX 宏包为了解决长章节数字的问题重定义了 \numberline；而 tocloft 宏包也重定义了它，为了加入控制命令集：\cftXpresnum \cftXaftersnum \cftXaftersnumb。两个重定义的功能不同，得此得彼。这里只好把两个重定义的功能混合起来。
+\makeatletter
+\renewcommand{\numberline}[1]{%
+  \settowidth\@tempdimb{#1\hspace{0.5em}}%
+  \ifdim\@tempdima<\@tempdimb%
+    \@tempdima=\@tempdimb%
+    \fi%
+  \hb@xt@\@tempdima{\@cftbsnum #1\@cftasnum\hfil}\@cftasnumb}
+\makeatother
+%}}}
 
