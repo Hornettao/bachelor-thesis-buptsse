@@ -36,7 +36,9 @@
 \patchcmd{\chapter}{\thispagestyle{plain}}{}{}{}
 
 % 图表标题配置
-\usepackage[font=tt, labelsep=quad]{caption}
+\usepackage{caption}
+\DeclareCaptionFont{ft}{\kaishu}      % 图表标题使用楷体
+\captionsetup{font=ft, labelsep=quad}
 \makeatletter
 \renewcommand \thefigure    {\thechapter-\arabic{figure}}    % 图形编号
 \renewcommand \thetable     {\thechapter-\arabic{table}}     % 表格编号
