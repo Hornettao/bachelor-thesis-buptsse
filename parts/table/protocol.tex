@@ -1,8 +1,12 @@
-
+% Server REST Interface Table
 \noindent
 \ttfamily
 \begin{longtable}{|p{1.2cm}|p{3cm}|p{3cm}|p{4cm}|X|}
+
+  \caption{服务器实体数据接口设计}
+  \\
   \hline
+
   \textbf{方法} & \textbf{资源标识符} & \textbf{权限} & \textbf{数据} & \textbf{描述} \\ \hline
 
   GET  & /u/:id            & *    & USER         & 用户 \\ \hline
@@ -70,8 +74,6 @@
 
   \multicolumn{5}{|l|}{非REST接口} \\ \hline
   POST    & /signin                      & *             & \{username, password\} & 登录 \\ \hline
-
-  \caption{服务器实体数据接口设计}
 
 \end{longtable}
 
