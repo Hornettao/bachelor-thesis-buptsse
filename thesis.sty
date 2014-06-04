@@ -51,6 +51,14 @@
 \renewcommand \theequation  {\thechapter-\arabic{equation}}  % 公式编号
 \makeatother
 
+% 重载附录宏
+\makeatletter
+\renewcommand*\appendix{\CTEX@save@appendix%
+  \gdef\CTEX@presection{\CTEX@appendixname}%
+  \gdef\CTEX@thesection{\CTEX@appendixnumber}%
+  \gdef\CTEX@postsection{}}%
+\makeatother
+
 % 目录大写罗马页码计数, 可用参数(arabic, alph, Alph, roman, Roman)
 \makeatletter
 \renewcommand\frontmatter[1]{%

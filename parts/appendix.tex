@@ -1,14 +1,15 @@
 \chapter*{附\qquad 录}
 
-%XXX 附录图索引
-\setcounter{figure}{0}
-\renewcommand{\thefigure}{A-\arabic{figure}}
+% 附录图表索引
+% FIXME 需要保存现场
+\renewcommand{\thechapter}{A}
 
-%XXX 附录图索引
-\setcounter{table}{0}
-\renewcommand{\thetable}{A-\arabic{table}}
+% 不将 Section 显示在 TOC 内
+\addtocontents{toc}{\protect\setcounter{tocdepth}{-1}}
 
-\section*{附录~1\quad	课程管理系统业务过程模型}
+\appendix
+
+\section{课程管理系统业务过程模型}
 \label{sec:appendix-bpm}
 
 本节为图~\ref{BPMOverview} 提供展开补充。
@@ -43,14 +44,14 @@
 
 \newpage
 
-\section*{附录~2\quad	课程管理系统产品需求表格}
+\section{课程管理系统产品需求表格}
 \label{sec:appendix-requirement-table}
 
 \LTXtable{\linewidth}{parts/table/requirement.tex}
 
 \newpage
 
-\section*{附录~3\quad	数据库设计示意图}
+\section{数据库设计示意图}
 \label{sec:appendix-database-diagram}
 
 图~\ref{FullDatabaseDesign} 展示了完整的数据库设计视图:
@@ -64,13 +65,16 @@
 
 \newpage
 
-\section*{附录~4\quad	QueryBuilder 模块实现}
+\section{QueryBuilder 模块实现}
 
 \verbatiminput{parts/code/querybuilder.js}
 
 \newpage
 
-\section*{附录~5\quad	Entangle 核心实现}
+\section{Entangle 核心实现}
 
 \verbatiminput{parts/code/entangle.js}
+
+% 恢复 TOC 设置 (本轮编译状态会被保存到下一轮)
+\addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
 
