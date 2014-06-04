@@ -31,9 +31,15 @@
 \rfoot{}
 \cfoot{\rmfamily\zihao{-5}\thepage}
 
-% 在章节页显示页眉
+% 提供 \patchcmd
 \usepackage{etoolbox}
+
+% 在章节页显示页眉
 \patchcmd{\chapter}{\thispagestyle{plain}}{}{}{}
+
+% 文献引用样式
+\bibliographystyle{IEEEtran}
+\patchcmd{\thebibliography}{\sloppy}{\itemsep -0.14cm \parsep 0pt \sloppy}{}{} % 减小条目间隔(0.3cm -> 0.16cm)
 
 % 图表标题配置
 \usepackage{caption}
