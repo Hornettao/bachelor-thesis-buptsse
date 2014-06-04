@@ -22,7 +22,7 @@
 %\setmainfont[BoldFont=SimHei]{Times New Roman}
 %\usepackage{mathptmx} %这个宏包使用后没有粗体
 
-\CTEXoptions[today=big,contentsname={目\qquad 录},bibname={\textbf\heiti\zihao{3}参考文献}]
+\CTEXoptions[today=big,contentsname={\textbf\heiti\zihao{3}目\qquad 录},bibname={\textbf\heiti\zihao{3}参考文献},tablename={\kaishu 表},figurename={\kaishu 图}]
 \CTEXoptions[captiondelimiter={\quad}]
 \CTEXsetup[format={\heiti\zihao{3}\bfseries\centering},nameformat={\bfseries},titleformat={\bfseries}]{chapter}
 \CTEXsetup[format={\heiti\zihao{4}\bfseries\raggedright}]{section}
@@ -50,8 +50,8 @@
 \patchcmd{\chapter}{\thispagestyle{plain}}{}{}{}
 
 \makeatletter
-\renewcommand{\thefigure}{\thechapter-\@arabic\c@figure}%改变图编号的形式
-\renewcommand{\thetable}{\thechapter-\@arabic\c@table}%改变表格编号的形式
-\renewcommand{\theequation}{\thechapter-\@arabic\c@equation}%改变表格编号的形式
+\renewcommand{\thefigure}{\kaishu\thechapter-\arabic{figure}}%改变图编号的形式
+\renewcommand{\thetable}{\kaishu\thechapter-\arabic{table}}%改变表格编号的形式
+\renewcommand{\theequation}{\kaishu\thechapter-\arabic{equation}}%改变表格编号的形式
 \makeatother
 
