@@ -1,0 +1,28 @@
+% Server Resource Relation Definition
+\noindent
+\ttfamily
+\begin{longtable}{|c|l|}
+
+  \caption{服务器实体关系接口设计\label{APURIRelation}}
+  \\
+  \hline
+
+  \textbf{符号} & \textbf{资源关系描述} \\ \hline
+
+  (u)/(p) & 用户资料     \\ \hline
+  (u)/(m) & 用户消息     \\ \hline
+  (u)/(c) & 用户的课程   \\ \hline
+  (c)/(m) & 课程消息     \\ \hline
+  (c)/(t) & 课程任务     \\ \hline
+  (f)/(s) & 表单提交     \\ \hline
+  (t)/(a) & 任务答案     \\ \hline
+  (a)/(r) & 答案评价     \\ \hline
+  (c)/(y) & 课程注册申请 \\ \hline
+  (y)/(r) & 课程评价     \\ \hline
+  (a)-(s) & 答案引用提交 \\ \hline
+  (t)-(f) & 任务引用表单 \\ \hline
+  (c)-(g) & 课程引用课类 \\ \hline
+  (g)-(f) & 课类引用表单 \\ \hline
+
+\end{longtable}
+
