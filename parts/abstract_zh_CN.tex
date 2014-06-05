@@ -7,10 +7,12 @@
 \vspace{2.5mm}
 \songti\zihao{-4}
 
-Model-View-ViewModel (MVVM) 模式是 Model-View-Controller (MVC) 模式的一种特例，2005 年由 Microsoft 提出并首次应用于 Windows Presentation Framework (WPF)，MVVM 模式将 MVC 架构模式与 Observer 模式配合使用，在 Model、ViewModel 与 View 之间通过 DataBinding 建立关系，解决了图形用户界面(Graphical User Interface)开发中对异步事件处理的难点，近年来十分受到业界的重视。
+Model View ViewModel (MVVM) 架构模式是 Model View Controller (MVC) 架构模式一种特例，也是当前图形用户界面程序比较流行的一种架构模式。2005 年该模式由 Microsoft 的工程师 Martin Fowler 提出，最初实现于 Windows Presentation Framework (WPF)。MVVM 模式将在 MVC 架构的基础上对 Controller 部分进行了详细设计——应用 Observer 模式实现异步逻辑的封装，使用松耦合的 Observer 模式建立 Model、ViewModel 与 View 之间的异步逻辑关系，解决图形用户界面(Graphical User Interface, GUI)开发中由异步逻辑导致的可复用性与可维护性问题。
 
-本文以课程管理系统的设计与实现为例，对比分析 MVVM 模式的开发性能，同时尝试对 MVVM 模式在 JavaScript 语言平台上的实现提出改进方案。借助 JavaScript 语言平台支持函数式编程的特性，在 MVVM 框架中引入 Functional Reactive Programming (FRP) 的设计思想，并从 Reactive Programming 的角度分析讨论 MVVM 模式在处理异步逻辑方面的优越性、设计基于 Monad 对象实现 ViewModel 的改进框架。
+Functional Reactive Programming (FRP) 是一种面向数据流的开发方法，开发者使用函数式方法声明数据的转换对程序逻辑进行定义。与常用于程序开发的命令式编程语言(Imperative Programming Language)中使用变量与事件实现对状态和交互的管理方式不同，FRP 通过声明数据的变换(Transform)过程实现程序逻辑，FRP 被广泛应用于计算机视觉、机器人以及其他控制系统的设计和实现。常见的命令式语言通过语句的先后顺序描述系统中的数据/变量之间的依赖关系，在处理异步交互逻辑的过程中命令式语言很容易引入额外的无效数据依赖，为了让程序正确地处理数据依赖关系，开发者往往需要通过组合几个编码单元实现一个异步逻辑的处理，甚至需要将异步逻辑的状态维护在全局编码单元。而函数式语言这样的声明式语言环境下的数据依赖是通过函数的递归调用进行实现的，在对异步逻辑进行编码的过程中不需要使用额外的代码处理数据依赖，异步逻辑的状态被维持在函数闭包环境内，充分实现了对逻辑内部状态的封装和隔离。
+
+本文以课程管理系统的设计与实现为例，对 MVVM 架构模式进行深入分析。结合 JavaScript 语言平台的函数式编程特性，尝试使用函数式语言中的 Monad 高阶函数实现近似于 Observer 模式的交互模型，在这些基础上引入 Reactive Programming 概念实现对 ViewModel 的声明式定义，尝试在 JavaScript 语言平台上设计基于 FRP 的 MVVM 框架方案。
 
 \vspace{3mm}
-\zihao{-4}\heiti\textbf{关键字}\quad \songti MVVM \quad 富应用 \quad Reactive Programming \quad 课程管理系统
+\zihao{-4}\heiti\textbf{关键字}\quad \songti MVVM \quad 富应用 \quad Reactive Programming
 
