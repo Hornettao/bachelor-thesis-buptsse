@@ -12,7 +12,7 @@
 
 明确了这点之后，我们可以将行用户交互实现的本质问题归结为~\textbf{处理异步事件}。
 
-基于事件的开发并不是命令式(Imperative)编程模式所擅长的领域，也导致了大多数 GUI 程序的交互实现都极其不易维护。
+基于事件的开发并不是命令式(Imperative)编程模式所擅长的领域，也导致了许多 GUI 程序的交互实现部分都极其不易维护。
 
 以 Drag'n'Drop (拖放操作, DnD) 为例\cite{Zhao2010}，在 GUI 上实现 DnD 操作需要程序监听三个不同的 GUI 事件:
 
@@ -38,7 +38,7 @@ MVC 架构模式中系统被分成 Model(模型)、View(视图)、Controller(控
 \end{figure}
 
 \begin{itemize}
-  \item \textbf{Model} 用于处理数据和业务操作
+  \item \textbf{Model} 处理数据和业务操作
   \item \textbf{View} 负责控制 Model 的显示逻辑
   \item \textbf{Controller} 响应用户事件、更新 Model
 \end{itemize}
@@ -70,13 +70,20 @@ MVC 架构模式中系统被分成 Model(模型)、View(视图)、Controller(控
 
 \end{verbatim}
 
-上面的代码依赖“全局状态”并且同一个逻辑被分散到了几个代码块中，可以看到这样的实现是比较缺乏可维护性和可读性的。
+上面的示例存在两个问题:
 
-当然，上面的实现只是 Controller 对异步逻辑的实现中最糟糕的例子。MVC 设计模式并没有对这一部分的逻辑进行更加详细的设计，因此，在 MVC 设计模式的基础上 Microsoft 提出了基于观察者模式(Observer Pattern)的 Controller 实现，也就是下文将讨论的 MVVM 模式。
+\begin{itemize}
+  \item 依赖“全局状态”
+  \item 本应连续的逻辑被分散到了几个代码块中
+\end{itemize}
+
+在软件质量标准中”局部性“ (Locality) 是判断可维护性的一个重要标准。代码的局部性表现在数据局部性与逻辑局部性上，对全局状态的依赖将破坏数据局部性，而逻辑碎片则导致了逻辑局部性的缺失。
+
+当然，这一种实现只是 Controller 对异步逻辑实现中最糟糕的例子。MVC 设计模式并没有对这一部分的逻辑进行更加详细的设计，因此，在 MVC 设计模式的基础上 Microsoft 提出了基于观察者模式 (Observer Pattern) 的 Controller 实现，也就是下文将讨论的 MVVM 模式。
 
 \section{面向对象的 MVVM 实现}
 
-MVVM 模式是对 MVC 模式的一种特殊形式，本节将就 MVVM 模式以及其应用的 Observer 设计模式进行讨论。
+MVVM 模式是对 MVC 模式的一种特殊形式:
 
 \begin{figure}[!h]
   \begin{center}
@@ -87,7 +94,12 @@ MVVM 模式是对 MVC 模式的一种特殊形式，本节将就 MVVM 模式以�
 
 图~\ref{MVVMCoreClasses}~\cite{ghoda2012windows} 详细描述了 MVVM 架构中各个组件所负责的任务以及之间的交互关系，其中 ViewModel 在 View 与 Model 中间进行数据处理、转换，是 MVVM 模式中的重要角色。
 
-简要描述一下 MVVM 结构中的基本交互: ViewModel 通过监听 Model 变更对 View 进行更新; View 通过 ViewModel 将用户事件转换为 Model 数据、对 Model 进行更改。
+MVVM 结构中的基本交互:
+
+\begin{itemize}
+  \item ViewModel 通过监听 Model 变更对 View 进行更新
+  \item View 通过 ViewModel 将用户事件转换为 Model 数据、对 Model 进行更改。
+\end{itemize}
 
 Model 与 ViewModel、View 与 ViewModel 之间的通信由 Binder 机制实现。Binder 机制是 MVVM 的 WPF 实现内隐含的设计~\footnote{MVVM 的命名并没有表现 Binder 机制}，通过 Binder 实现 ViewModel 到 View 的属性绑定和 ViewModel 对 Model 的监听~\cite{Likness2010}。
 
@@ -99,9 +111,10 @@ Model 与 ViewModel、View 与 ViewModel 之间的通信由 Binder 机制实现�
   \begin{center}
     \includegraphics[width=\textwidth]{figures/pattern-observer.pdf}
     \caption{类图: 观察者模式\label{PatternObserver}}
-    Subject 接受注册 Observer 并在 notifyObserver 中向 Observer 推送数据
   \end{center}
 \end{figure}
+
+程序需要先将观察者实例注册至 Subject (被观察者)，当 $Subject$ 的属性发生变更时 $notifyObserver$ 方法将得到触发，$notifyObserver$ 将枚举当前注册的所有 $Observer$ 实例并向其推送数据。
 
 参照图~\ref{PatternObserver}~\footnote{Wikipedia: File:Observer.svg} 中的定义对 Model 与 ViewModel 进行定义:
 
@@ -111,6 +124,8 @@ Model 与 ViewModel、View 与 ViewModel 之间的通信由 Binder 机制实现�
         @interface IViewModel implements IObserver;
 
 \end{verbatim}
+
+在 MVVM 模式中 ViewModel 作为 Model 的观测者，因而 Model 实现 Subject，而 ViewModel 实现 Observer。
 
 为了让 ViewModel 具有与 Model 相似的行为，将 ViewModel 的接口改写为:
 
@@ -146,7 +161,7 @@ Binder 实例构造时指定 View 元素作为 Observer 实例，指定 ViewMode
   \end{center}
 \end{figure}
 
-这样的设计使得ViewModel模式获得了很强的可扩展性，将用户交互状态分开给不同的 ViewModel 进行管理可以显著减小业务逻辑状态的维护难度，开发者可以利用封装的 ViewModel 类库进行组合来完成用户交互逻辑的实现，具有很高的可复用性。使用 ViewModel 进行开发也同时带来了良好的可测试的代码结构。
+这样的设计使得 ViewModel 模式获得了很强的可扩展性，将用户交互状态分开给不同的 ViewModel 进行管理可以显著减小业务逻辑状态的维护难度，开发者可以利用封装的 ViewModel 类库进行组合来完成用户交互逻辑的实现，具有很高的可复用性。使用 ViewModel 进行开发也同时带来了良好的可测试的代码结构。
 
 上节我们已经看到直接使用回调函数实现 Controller 处理异步交互事件的弊端，在使用使用观察者模式(Observer Pattern)、利用观察者响应事件数据的 MVVM 模型中 Drag'n'Drop 逻辑的接口实现是这样的:
 
@@ -187,7 +202,7 @@ Reactive Programming 是一种声明式的开发方法，用户通过声明数�
 
 \end{verbatim}
 
-上面的代码片段演示了 $A = B + C$ 的 Reactive 定义(使用 JavaScript 语言环境)，当更改 $B$ 或 $C$ 的值发生改变时 $A$ 的值便会“自动”进行重新计算。
+上面的代码片段演示了 $A = B + C$ 的 Reactive 定义(使用 JavaScript 语言环境)，当更改 $B$ 或 $C$ 的值发生改变时 $A$ 的值便会“自动”进行重新计算:
 
 \begin{verbatim}
 
@@ -200,7 +215,9 @@ Reactive Programming 是一种声明式的开发方法，用户通过声明数�
 
 FRP 的将系统抽象为行为(Behaviors)和事件(Events)，上例中先使用 Monad 函数包装行为(见 A、B、C 的定义)并在行为之间建立关联(上例中使用 $bindTo$)，然后通过传入事件($B(5);$) 更改“行为”的值。
 
-Reactive 定义中出现的 $\$R$ 函数所产生的对象(即 A、B和C)与 Haskell 中为 Monad 拥有相同的定义~\cite{raey}，后文中使用 Monad 指代这类对象。
+Reactive 定义中出现的 $\$R$ 函数所产生的对象(即 A、B和C)与 Haskell 中为 Monad 拥有相同的定义~\cite{raey}，$\$R$ 即 Monad 构造器，后文中使用 Monad 指代这类对象。
+
+Monad 在形式上是一个”数据“而实现上是一个封装了“计算”的高阶函数，FRP 的定义中 Monad 就是所谓的行为(Behavior)。在命令式语言中实现的类 Monad 高阶函数通过“缓存”依赖数据的形式，以使逻辑脱离上下文依赖。
 
 不难发现，Monad 与 Observer 有非常相似的行为:
 
@@ -231,13 +248,15 @@ Monad 与 Observer 之间的区别是 Monad 通过包装数据实现监听而 Ob
   \item $setup$ 与 $teardown$ 用于控制消息传递的开始和结束
 \end{itemize}
 
-这样定义以后实现 Drag'n'Drop 逻辑只需声明:
+这样定义以后在程序中实现 Drag'n'Drop 逻辑只需声明:
 
 \begin{verbatim}
+
         dnd(mousedown(view), mouseup(view), mousemove(view))
+
 \end{verbatim}
 
-$mousedown$、$mouseup$ 与 $mousemove$ 函数分别产生 $view$ 对应事件对象的 Monad 对象，$dnd$ 函数控制 Drag'n'Drop 过程中的程序动作~\footnote{dnd 过程使用命令式进行定义}。
+$mousedown$、$mouseup$ 与 $mousemove$ 函数分别产生 $view$ 对应事件对象的 Monad 高阶函数，$dnd$ 函数控制 Drag'n'Drop 过程中的程序动作~\footnote{dnd 过程使用命令式进行定义}。
 
 这里需要注意的是 $dnd$ 是一个返回 Monad 函数的高阶函数，接受三个 Monad 函数作为参数，通过 $on$ 方法监听三个 Monad 函数参数的变更，实现 FRP 中的 Pull 传递模型~\cite{Elliott:2009:PFR:1596638.1596643}。
 
