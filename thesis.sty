@@ -17,6 +17,10 @@
 \setsansfont{Times New Roman}
 \setmonofont{Courier X}
 
+% 宏: 引用外部表格(单页打印)
+\newcommand{\externalform}[2][pages=-]{\IfFileExists{#2}{\cleardoublepage%
+\includepdf[#1,pagecommand={\thispagestyle{empty}\newpage\rule{0pt}{0pt}\newpage}]{#2}}{}}
+
 % 文献引用上标
 \makeatletter
 \def\@cite#1#2{\textsuperscript{[{#1\if@tempswa , #2\fi}]}}

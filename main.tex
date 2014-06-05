@@ -10,10 +10,16 @@
 \pagestyle{empty}
 
 %封面
-%\include{parts/cover}
+\externalform[pages=1]{parts/forms/cover.pdf}
+
+%任务书
+\externalform{parts/forms/plan.pdf}
+
+%决议书
+\externalform{parts/forms/resolution.pdf}
 
 %诚信声明
-%\include{parts/statement}
+\externalform[pages=1]{parts/forms/statement.pdf}
 
 %中文摘要
 \include{parts/abstract_zh_CN}
@@ -64,5 +70,11 @@
 
 %外文资料(译文/原文)
 \include{parts/translation}
+
+%开题报告
+\externalform{parts/forms/proposal.pdf}
+
+%中期检查表
+\externalform{parts/forms/inprocess.pdf}
 
 \end{document}
